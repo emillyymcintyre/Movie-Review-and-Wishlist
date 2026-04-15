@@ -1,7 +1,13 @@
+import { Link } from "react-router-dom";
+
 function Navbar({ search, setSearch }) {
   return (
     <nav className="navbar">
-      <h2>Movie App 🎬</h2>
+      <h2>Movie App </h2>
+      <div>
+        <Link to="/">Home</Link>
+        <Link to="/second">Watchlist</Link>
+      </div>
 
       <input
         type="text"
