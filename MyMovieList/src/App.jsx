@@ -4,11 +4,21 @@ import './App.css'
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Reviews from "./pages/Reviews";
+import Login from "./pages/Login";
+import Ratings from "./pages/Ratings";
+import { login, logout, getStoredUser } from "./auth";
+import Register from "./pages/Register";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
   const [watchlist, setWatchlist] = useState([]);
+  const [user, setUser] = useState(getStoredUser());
+
+  const handleLogout = () => {
+  logout();
+  setUser(null);
+};
 
    const addToWatchlist = (movie) => {
     if (!watchlist.find((m) => m.id === movie.id)) {
@@ -27,14 +37,12 @@ function App() {
 
   return (
     <div>
-      <Navbar search={search} setSearch={setSearch} />
+      <Navbar search={search} setSearch={setSearch} user={user} onLogout={handleLogout} />
 
       <Routes>
-        <Route path="/" element={<h1>Home Page</h1>} />
-        <Route path="/second" element={<Reviews watchlist={watchlist} />} />
-      </Routes>
-
-      <div className="movie-grid">
+        <Route path="/" element={
+          
+         <div className="movie-grid">
         {movies.map((movie) => (
           <div key={movie.id} className="movie-card">
             <img
@@ -48,6 +56,17 @@ function App() {
           </div>
         ))}
       </div>
+      
+      
+      } />
+        <Route path="/second" element={<Reviews watchlist={watchlist} />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/ratings" element={<Ratings watchlist={watchlist} />} />
+        <Route path="/register" element={<Register setUser={setUser} />} />
+
+      </Routes>
+
+     
     </div>
   );
 }
