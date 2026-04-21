@@ -51,7 +51,7 @@ function App() {
             />
             <h3>{movie.title}</h3>
             <button onClick={() => addToWatchlist(movie)}>
-              ➕ Add to Watchlist
+              Add to Watchlist
             </button>
           </div>
         ))}
