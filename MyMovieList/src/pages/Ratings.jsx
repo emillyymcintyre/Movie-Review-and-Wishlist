@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getStoredRatingsData, saveStoredRatingsData } from "../auth";
 
-function Ratings({ watchlist }) {
-  const [ratings, setRatings] = useState({});
-  const [reviews, setReviews] = useState({});
+function Ratings({ watchlist, user }) {
+  const [ratings, setRatings] = useState(() => getStoredRatingsData(user).ratings);
+  const [reviews, setReviews] = useState(() => getStoredRatingsData(user).reviews);
+
+  useEffect(() => {
+    const storedRatingsData = getStoredRatingsData(user);
+    setRatings(storedRatingsData.ratings);
+    setReviews(storedRatingsData.reviews);
+  }, [user]);
+
+  useEffect(() => {
+    saveStoredRatingsData(user, { ratings, reviews });
+  }, [user, ratings, reviews]);
 
   const handleRating = (movieId, star) => {
     setRatings((prev) => ({ ...prev, [movieId]: star }));
@@ -56,7 +67,7 @@ function Ratings({ watchlist }) {
                 value={reviews[movie.id] || ""}
                 onChange={(e) => handleReviewChange(movie.id, e.target.value)}
                 rows={3}
-                style={{ width: "100%", marginTop: "0.5rem", resize: "vertical" }}
+                style={{ width: "80%", marginTop: "0.5rem", resize: "vertical" }}
               />
             </div>
           ))}

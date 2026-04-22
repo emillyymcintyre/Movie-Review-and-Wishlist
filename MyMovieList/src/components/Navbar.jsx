@@ -8,7 +8,7 @@ function Navbar({ search, setSearch, user, onLogout }) {
       {user ? (
           <>
           
-            <span>{user}</span>
+            <span> {user} </span>
           <button onClick={onLogout}>Log Out</button>
           
           

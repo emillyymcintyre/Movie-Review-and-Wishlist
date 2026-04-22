@@ -318,3 +318,24 @@
 .login-btn:hover {
   background: #4338ca;
 }
+
+
+
+/*watchlist btns */
+button {
+  background-color: #961d1d;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #460404;
+}
+
+.added-btn {
+  background-color: #555; /* darker */
+  cursor: default;
+}
